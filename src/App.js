@@ -7,17 +7,20 @@ function TempForm(props) {
       <label htmlFor="degrees">Degrees</label>
       <input
         value={props.tempNum}
+        placeholder="Input a number"
         onChange={(e) => props.onSetTempNum(e.target.value)}
         type="number"
         name="degrees"
         id="degrees"
         className="in-style"
+        required
       />
       <label htmlFor="type">Type</label>
       <select
         value={props.tempType}
         onChange={(e) => props.onTempType(e.target.value)}
         className="in-style"
+        id="type"
       >
         <option value="fahrenheit">Fahrenheit</option>
         <option value="celcius">Celcius</option>
@@ -32,17 +35,19 @@ function Header() {
   return <h1 className="heading">Temperature Converter</h1>;
 }
 
-function Results(props){
-  return(<div className="results">
-  {props.newTemp && (
-    <p>
-      Results: {props.newTemp}{" "}
-      {props.tempType === "fahrenheit"
-        ? "degrees Celcius"
-        : "degrees Fahrenheit"}
-    </p>
-  )}
-</div>)
+function Results(props) {
+  return (
+    <div className="results">  
+      {props.newTemp && (
+        <p>
+          Results: {props.newTemp}{" "}
+          {props.tempType === "fahrenheit"
+            ? "\u2103"
+            : "\u2109"}
+        </p>
+      )}
+    </div>
+  );
 }
 function App() {
   const [tempNum, setTempNum] = useState("");
@@ -76,7 +81,9 @@ function App() {
             onTempType={setTempType}
             tempType={tempType}
           />
-          <Results newTemp={newTemp} tempType={tempType}/>
+
+            <Results newTemp={newTemp} tempType={tempType} />
+
         </div>
       </main>
     </>
